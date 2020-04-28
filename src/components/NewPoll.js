@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage, defineMessage, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,6 +13,21 @@ import {
   Loader
 } from 'semantic-ui-react';
 import { handleSaveQuestion } from '../actions/questions';
+
+const MESSAGES = defineMessage({
+  updating: {
+    id: 'new.poll.loader.updating',
+    defaultMessage: 'Updating'
+  },
+  option1: {
+    id: 'new.poll.option.one',
+    defaultMessage: 'Enter option one...'
+  },
+  option2: {
+    id: 'new.poll.option.two',
+    defaultMessage: 'Enter option two...'
+  }
+});
 
 export class NewPoll extends Component {
   static propTypes = {
@@ -46,6 +62,7 @@ export class NewPoll extends Component {
   };
   render() {
     const disabled = this.state.option1 === '' || this.state.option2 === '';
+    const { intl: { formatMessage } } = this.props;
 
     if (this.state.validSubmit === true) {
       return <Redirect to="/" />;
@@ -53,23 +70,33 @@ export class NewPoll extends Component {
     return (
       <Segment.Group>
         <Header as="h3" textAlign="left" block attached="top">
-          Create a New Poll
+          <FormattedMessage id="new.poll.create.new" defaultMessage="Create a New Poll" /> 
         </Header>
         <Grid padded>
           <Grid.Column>
             {this.state.isLoading && (
               <Dimmer active inverted>
-                <Loader content="Updating" />
+                <Loader content={formatMessage(MESSAGES.updating)} />
               </Dimmer>
             )}
-            <p>Complete the question:</p>
             <p>
-              <strong>Would you rather...</strong>
+              <FormattedMessage
+                id='new.poll.complete.question'
+                defaultMessage="Complete the question:"
+              />
+            </p>
+            <p>
+              <strong>
+                <FormattedMessage
+                  id='new.poll.would.you.question'
+                  defaultMessage="Would you rather..."
+                />
+              </strong>
             </p>
             <Form onSubmit={this.handleSubmit}>
               <Form.Input
                 id="option1"
-                placeholder="Enter option one..."
+                placeholder={formatMessage(MESSAGES.option1)}
                 value={this.state.option1}
                 onChange={this.handleChange}
                 required
@@ -77,13 +104,13 @@ export class NewPoll extends Component {
               <Divider horizontal>Or</Divider>
               <Form.Input
                 id="option2"
-                placeholder="Enter option two..."
+                placeholder={formatMessage(MESSAGES.option2)}
                 value={this.state.option2}
                 onChange={this.handleChange}
                 required
               />
               <Form.Button positive size="tiny" fluid disabled={disabled}>
-                Submit
+                <FormattedMessage id="new.poll.submit.text" defaultMessage="Submit" />
               </Form.Button>
             </Form>
           </Grid.Column>
@@ -102,4 +129,4 @@ function mapStateToProps({ authUser }) {
 export default connect(
   mapStateToProps,
   { handleSaveQuestion }
-)(NewPoll);
+)(injectIntl(NewPoll));
