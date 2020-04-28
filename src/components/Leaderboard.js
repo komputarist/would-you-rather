@@ -16,7 +16,7 @@ const MESSAGES = defineMessage({
     id: 'leader.board.score',
     defaultMessage: 'Score'
   }
-})
+});
 
 const trophyColor = ['yellow', 'grey', 'orange'];
 

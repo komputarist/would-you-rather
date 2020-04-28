@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -33,7 +34,10 @@ export class Login extends Component {
         </Segment.Group>
         <footer className="footer">
           <a href="https://www.freepik.com/free-photos-vectors/design">
-            Avatar characters created by freepik - www.freepik.com
+            <FormattedMessage
+              id="login.avatar.text"
+              defaultMessage="Avatar characters created by freepik - www.freepik.com"
+            />
           </a>
         </footer>
       </Fragment>
@@ -43,8 +47,18 @@ export class Login extends Component {
 
 const LoginHeader = () => (
   <Header as="h4" block attached="top" textAlign="center">
-    <Header.Content>Welcome to the Would You Rather App!</Header.Content>
-    <Header.Subheader>Please sign in to continue</Header.Subheader>
+    <Header.Content>
+    <FormattedMessage
+      id="login.welcome.text"
+      defaultMessage="Explore the Would You Rather App - React Edition"
+    />
+    </Header.Content>
+    <Header.Subheader>
+    <FormattedMessage
+      id="login.text.enter"
+      defaultMessage="Please enter your credentials to sign in"
+    />
+    </Header.Subheader>
   </Header>
 );
 
@@ -108,7 +122,7 @@ class LoginForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Header as="h2" color="green">
-          Sign In
+          <FormattedMessage id='login.sign.in.text' defaultMessage="Sign In" />
         </Header>
         <Form.Dropdown
           placeholder="Select a Friend"
