@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropType from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -34,12 +35,22 @@ export class Leaderboard extends Component {
                     {user.name}
                   </Header>
                   <Grid>
-                    <Grid.Column width={12}>Answered questions</Grid.Column>
+                    <Grid.Column width={12}>
+                      <FormattedMessage
+                        id="leader.board.answered.questions"
+                        defaultMessage="Answered questions"
+                      />
+                    </Grid.Column>
                     <Grid.Column width={4}>{user.answerCount}</Grid.Column>
                   </Grid>
                   <Divider />
                   <Grid>
-                    <Grid.Column width={12}>Created questions</Grid.Column>
+                    <Grid.Column width={12}>
+                    <FormattedMessage
+                        id="leader.board.created.questions"
+                        defaultMessage="Created questions"
+                      />
+                    </Grid.Column>
                     <Grid.Column width={4}>{user.questionCount}</Grid.Column>
                   </Grid>
                 </Grid.Column>
