@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { FormattedMessage, defineMessage, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
@@ -11,6 +12,25 @@ import {
 } from 'semantic-ui-react';
 import { setAuthUser } from '../actions/authUser';
 
+const MESSAGES = defineMessage({
+  home: {
+    id: 'nav.menu.item.home',
+    defaultMessage: 'home'
+  },
+  poll: {
+    id: 'nav.menu.item.poll',
+    defaultMessage: 'new poll'
+  },
+  leader: {
+    id: 'nav.menu.item.leader',
+    defaultMessage: 'leader board'
+  },
+  logout: {
+    id: 'nav.menu.logout',
+    defaultMessage: 'Logout'
+  }
+});
+
 class Nav extends Component {
   handleLogout = e => {
     e.preventDefault();
@@ -18,14 +38,14 @@ class Nav extends Component {
   };
 
   render() {
-    const { authUser, users } = this.props;
+    const { authUser, users, intl: { formatMessage } } = this.props;
 
     return (
       <Container>
         <Responsive as={Menu} minWidth={651} pointing secondary>
-          <Menu.Item name="home" as={NavLink} to="/" exact />
-          <Menu.Item name="new poll" as={NavLink} to="/add" />
-          <Menu.Item name="leader board" as={NavLink} to="/leaderboard" />
+          <Menu.Item name={formatMessage(MESSAGES.home)} as={NavLink} to="/" exact />
+          <Menu.Item name={formatMessage(MESSAGES.poll)} as={NavLink} to="/add" />
+          <Menu.Item name={formatMessage(MESSAGES.leader)} as={NavLink} to="/leaderboard" />
           <Menu.Menu position="right">
             <Menu.Item>
               <span>
@@ -40,7 +60,7 @@ class Nav extends Component {
             </Menu.Item>
             <Menu.Item>
               <Button
-                content="Logout"
+                content={formatMessage(MESSAGES.logout)}
                 labelPosition="right"
                 basic
                 compact
@@ -65,7 +85,7 @@ class Nav extends Component {
               </Grid.Column>
               <Grid.Column verticalAlign="bottom" textAlign="right">
                 <Button
-                  content="Logout"
+                  content={formatMessage(MESSAGES.logout)}
                   labelPosition="right"
                   basic
                   compact
@@ -78,10 +98,10 @@ class Nav extends Component {
             <Grid.Row>
               <Grid.Column width={16}>
                 <Menu pointing secondary widths={3}>
-                  <Menu.Item name="home" as={NavLink} to="/" exact />
-                  <Menu.Item name="new poll" as={NavLink} to="/add" />
+                  <Menu.Item name={formatMessage(MESSAGES.home)} as={NavLink} to="/" exact />
+                  <Menu.Item name={formatMessage(MESSAGES.poll)} as={NavLink} to="/add" />
                   <Menu.Item
-                    name="leader board"
+                    name={formatMessage(MESSAGES.leader)}
                     as={NavLink}
                     to="/leaderboard"
                   />
@@ -102,7 +122,7 @@ class Nav extends Component {
                 />
                 {users[authUser].name}
                 <Button
-                  content="Logout"
+                  content={formatMessage(MESSAGES.logout)}
                   labelPosition="right"
                   basic
                   compact
@@ -116,10 +136,10 @@ class Nav extends Component {
             <Grid.Row>
               <Grid.Column>
                 <Menu pointing secondary widths={3}>
-                  <Menu.Item name="home" as={NavLink} to="/" exact />
-                  <Menu.Item name="new poll" as={NavLink} to="/add" />
+                  <Menu.Item name={formatMessage(MESSAGES.home)} as={NavLink} to="/" exact />
+                  <Menu.Item name={formatMessage(MESSAGES.poll)} as={NavLink} to="/add" />
                   <Menu.Item
-                    name="leader board"
+                    name={formatMessage(MESSAGES.leader)}
                     as={NavLink}
                     to="/leaderboard"
                   />
@@ -143,4 +163,4 @@ function mapStateToProps({ users, authUser }) {
 export default connect(
   mapStateToProps,
   { setAuthUser }
-)(Nav);
+)(injectIntl(Nav));
