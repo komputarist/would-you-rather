@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Button, Form, Radio } from 'semantic-ui-react';
@@ -30,7 +31,9 @@ export class PollQuestion extends Component {
 
     return (
       <Fragment>
-        <Header as="h4">Would you rather</Header>
+        <Header as="h4">
+          <FormattedMessage id="poll.question.header.text" defaultMessage="Would you rather" />
+        </Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <Radio
