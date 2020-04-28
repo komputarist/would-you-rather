@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { FormattedMessage, defineMessage, injectIntl } from 'react-intl';
+import { defineMessage, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
