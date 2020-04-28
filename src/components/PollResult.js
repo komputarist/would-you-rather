@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -16,9 +17,11 @@ const YourVoteLabel = () => (
   <Label color="orange" ribbon="right" className="vote">
     <Icon name="check circle outline" size="big" className="compact" />
     <div style={{ float: 'right' }}>
-      Your
-      <br />
-      Vote
+      <FormattedMessage
+        id="poll.result.text"
+        defaultMessage="Your {break} Vote"
+        values={{break: <br />}}
+      />
     </div>
   </Label>
 );
@@ -53,7 +56,10 @@ export class PollResult extends Component {
         <Header as="h3">
           Results:
           <Header.Subheader style={{ fontWeight: 'bold' }}>
-            Would you rather
+          <FormattedMessage
+            id="poll.result.would.you.text"
+            defaultMessage="Would you rather"
+          />
           </Header.Subheader>
         </Header>
         <Segment
@@ -67,7 +73,14 @@ export class PollResult extends Component {
             progress
             color={option1.color}
           >
-            {optionOneVotes} out of {votesTotal} votes
+            <FormattedMessage
+              id="poll.result.votes.out"
+              defaultMessage="{optionOneVotes} out of {votesTotal} votes"
+              values={{
+                optionOneVotes,
+                votesTotal
+              }}
+            />
           </Progress>
         </Segment>
         <Segment
@@ -82,12 +95,19 @@ export class PollResult extends Component {
             progress
             color={option2.color}
           >
-            {optionTwoVotes} out of {votesTotal} votes
-          </Progress>
+            <FormattedMessage
+              id="poll.result.votes.out.two"
+              defaultMessage="{optionTwoVotes} out of {votesTotal} votes"
+              values={{
+                optionOneVotes,
+                votesTotal
+              }}
+            />
+         </Progress>
         </Segment>
         {/* <Form.Field> */}
         <Button size="tiny" floated="right" onClick={this.handleClick}>
-          Back
+          <FormattedMessage id="poll.result.button.back" defaultMessage="Back" />
         </Button>
         {/* </Form.Field> */}
       </Fragment>
