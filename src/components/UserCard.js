@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -65,7 +66,13 @@ export class UserCard extends Component {
           attached="top"
           style={{ borderTop: borderTop }}
         >
-          {author.name} asks:
+          <FormattedMessage
+            id="user.card.asks.text"
+            defaultMessage="{name} asks:"
+            values={{
+              name: author.name
+            }}
+          />
         </Header>
 
         <Grid divided padded>
