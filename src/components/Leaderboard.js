@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessage, injectIntl } from 'react-intl';
 import PropType from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -11,6 +11,13 @@ import {
   Divider
 } from 'semantic-ui-react';
 
+const MESSAGES = defineMessage({
+  score: {
+    id: 'leader.board.score',
+    defaultMessage: 'Score'
+  }
+})
+
 const trophyColor = ['yellow', 'grey', 'orange'];
 
 export class Leaderboard extends Component {
@@ -18,7 +25,7 @@ export class Leaderboard extends Component {
     leaderboardData: PropType.array.isRequired
   };
   render() {
-    const { leaderboardData } = this.props;
+    const { leaderboardData, intl: { formatMessage } } = this.props;
 
     return (
       <Fragment>
@@ -46,7 +53,7 @@ export class Leaderboard extends Component {
                   <Divider />
                   <Grid>
                     <Grid.Column width={12}>
-                    <FormattedMessage
+                      <FormattedMessage
                         id="leader.board.created.questions"
                         defaultMessage="Created questions"
                       />
@@ -56,7 +63,11 @@ export class Leaderboard extends Component {
                 </Grid.Column>
                 <Grid.Column width={4} textAlign="center">
                   <Segment.Group>
-                    <Header as="h5" block attached="top" content="Score" />
+                    <Header
+                      as="h5"
+                      block attached="top"
+                      content={formatMessage(MESSAGES.score)}
+                    />
                     <Segment>
                       <Label circular color="green" size="big">
                         {user.questionCount + user.answerCount}
@@ -91,4 +102,4 @@ function mapStateToProps({ users }) {
   };
 }
 
-export default connect(mapStateToProps)(Leaderboard);
+export default connect(mapStateToProps)(injectIntl(Leaderboard));
