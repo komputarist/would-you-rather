@@ -99,7 +99,7 @@ export class PollResult extends Component {
               id="poll.result.votes.out.two"
               defaultMessage="{optionTwoVotes} out of {votesTotal} votes"
               values={{
-                optionOneVotes,
+                optionTwoVotes,
                 votesTotal
               }}
             />
